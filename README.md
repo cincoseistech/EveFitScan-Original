@@ -1,5 +1,8 @@
 # README #
-
+---------------------------
+THIS IS A REUPLOAD OF THE ORIGINAL GITHUB THAT HAS SINCE BEEN TAKEN DOWN.
+CONTACT INFORMATION BELOW, ETC., IS DEPRECIATED. THIS PROGRAM IS NOT SUPPORTED, OR FUNCTIONING.
+---------------------------
 This is the standalone Eve Online fit scan tool.
 I created it to simplify ship fit scanning.
 
