@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    partial class FitScanProcessor
+    public partial class FitScanProcessor
     {
         public delegate void DelegateShipFitChanged();
         public event DelegateShipFitChanged EventShipFitChanged;
@@ -27,15 +27,6 @@ namespace EveFitScanUI
             get
             {
                 return m_EFTFit;
-            }
-        }
-
-        private string m_CODEToolURL = "";
-        public string CODEToolURL
-        {
-            get
-            {
-                return m_CODEToolURL;
             }
         }
 
