@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>EveFitScan.Core</RootNamespace>
+    <AssemblyName>EveFitScan.Core</AssemblyName>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>1.0.5.27</Version>
+    <Company>EveFitScan</Company>
+    <Product>EveFitScan.Core</Product>
+    <Copyright>Copyright © 2017</Copyright>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="3.1.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\fitscan-catalog.msgpack" Condition="Exists('Data\fitscan-catalog.msgpack')" />
+  </ItemGroup>
+</Project>

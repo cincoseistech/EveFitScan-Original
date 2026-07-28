@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    partial class ShipModel
+    public partial class ShipModel
     {
         // ==============================================================================================================
         #region "ship/module database"

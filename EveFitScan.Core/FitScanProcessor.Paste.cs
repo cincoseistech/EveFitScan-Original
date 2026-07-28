@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    partial class FitScanProcessor
+    public partial class FitScanProcessor
     {
         public void NewPaste(string Data, bool bPassive, bool bADCActive) {
             int ShipTypeID = 0;

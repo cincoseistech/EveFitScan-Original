@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    partial class FitScanProcessor
+    public partial class FitScanProcessor
     {
         public delegate void DelegateNewItemsWithUnknownPrices();
         public event DelegateNewItemsWithUnknownPrices EventNewItemsWithUnknownPrices;

@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    partial class FitScanProcessor {
+    public partial class FitScanProcessor {
 
         public void SetShipName(string ShipName, bool bPassive, bool bADCActive) {
             int Index = -1;
@@ -31,11 +31,49 @@ namespace EveFitScanUI
         }
 
         public IReadOnlyCollection<string> SuggestNames(string Prefix) {
-            if (Prefix.Length >= 3)
+            if (string.IsNullOrEmpty(Prefix))
+                return GetAllShipNames();
+            return Model.SuggestNames(Prefix);
+        }
+
+        public IReadOnlyList<string> GetAllShipNames()
+        {
+            var names = new List<string>(Model.ShipDescriptions.Count);
+            for (int i = 0; i < Model.ShipDescriptions.Count; ++i)
+                names.Add(Model.ShipDescriptions[i].m_Name);
+            names.Sort(StringComparer.OrdinalIgnoreCase);
+            return names;
+        }
+
+        public bool TryResolveTypeId(string itemName, out int typeId)
+        {
+            typeId = 0;
+            if (string.IsNullOrEmpty(itemName))
+                return false;
+            int index;
+            if (Model.ModuleNameToIndex.TryGetValue(itemName, out index))
             {
-                return Model.SuggestNames(Prefix);
+                typeId = Model.ModuleDescriptions[index].m_TypeID;
+                return true;
             }
-            return new List<string>();
+            if (Model.ShipNameToIndex.TryGetValue(itemName, out index))
+            {
+                typeId = Model.ShipDescriptions[index].m_TypeID;
+                return true;
+            }
+            return false;
+        }
+
+        public int CatalogBuildNumber => Model.CatalogBuildNumber;
+
+        /// <summary>
+        /// Reload ship/module data from <see cref="Catalog.CatalogLoader.UserCatalogPath"/> (or embedded).
+        /// Clears the current fit.
+        /// </summary>
+        public void ReloadCatalog(bool bPassive, bool bADCActive)
+        {
+            Model.ReloadCatalog();
+            ResetFit(bPassive, bADCActive);
         }
 
         private ShipModel m_ShipModel = null;
@@ -162,7 +200,6 @@ namespace EveFitScanUI
                 }
             }
 
-            GenerateCODEToolURL();
             GenerateEFTFit();
 
             EventShipFitChanged();
@@ -170,18 +207,6 @@ namespace EveFitScanUI
             RecalculateFitValue();
 
             UpdateItemListForPricing(AllItems.Keys);
-        }
-
-        private void GenerateCODEToolURL() {
-            m_CODEToolURL = "http://halaimacode.byethost8.com/fitscan.html#";
-            m_CODEToolURL += Model.ShipTypeID.ToString() + ":";
-            foreach (KeyValuePair<ShipModel.SLOT, Dictionary<int, uint>> kvp in Model.Fit)
-            {
-                foreach (KeyValuePair<int,uint> Modules in kvp.Value) {
-                    m_CODEToolURL += Modules.Key.ToString() + ';' + Modules.Value.ToString() + ':';
-                }
-            }
-            m_CODEToolURL += ":";
         }
 
         private void GenerateEFTFit() {

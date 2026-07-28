@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EveFitScanUI
+namespace EveFitScan.Core
 {
-    class HistoryManager
+    public class HistoryManager
     {
         const int MAX_HISTORY_LINES = 20;
 
